@@ -52,6 +52,7 @@ $ node PAS-Test get "EE55000000000"
   personcode: 'EE55000000000',
   firstname: 'Jaan',
   lastname: 'Kuusk' }```
+```
 
 kasutajate nimekirja väljastamine:
 

@@ -41,21 +41,23 @@ server.addService(
       // an object representing the response message.
       callback(null, { users: users });
     },
+
     insert: function (call, callback) {
       var person = call.request;
       users.push(person);
       usersStream.emit('new_book', person);
       callback(null, { opresultmessage: 'OK' });
     },
+
     get: function (call, callback) {
       for (var i = 0; i < users.length; i++)
         if (users[i].personcode == call.request.personcode)
           return callback(null, users[i]);
-      callback({
-        code: grpc.status.NOT_FOUND,
-        details: 'Ei leia sellist kasutajat'
-      });
+      // TODO: Korrektne veakäsitlus
+      callback(null,
+        { opresultmessage: 'Ei leia sellist kasutajat' });
     },
+
     delete: function (call, callback) {
       for (var i = 0; i < users.length; i++) {
         if (users[i].personcode == call.request.personcode) {
@@ -63,26 +65,24 @@ server.addService(
           return callback(null, { opresultmessage: 'OK' });
         }
       }
-      callback({
-        code: grpc.status.NOT_FOUND,
-        details: 'Ei leia sellist kasutajat'
-      });
+      callback(null,
+        { opresultmessage: 'Ei leia sellist kasutajat' });
     },
+
     assignrole: function (call, callback) {
       var personcode = call.request.personcode;
       var role = call.request.role;
       for (var i = 0; i < users.length; i++) {
         if (users[i].personcode == personcode) {
-          console.log('Lisan rolli: ', role);
           users[i].roles.push(role);
-          console.log('Kasutaja rollid: ', users[i].roles);
-          return callback(null, { opresultmessage: 'OK'});
+          return callback(null, { opresultmessage: 'OK' });
         }
       }
       callback(
         null, { opresultmessage: 'Ei leia sellist kasutajat' }
       );
     },
+    
     watch: function (stream) {
       usersStream.on('new_book', function (person) {
         stream.write(person);
