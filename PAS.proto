@@ -35,7 +35,7 @@ message User {
 }
 
 message UserList {
-  repeated User isikud = 1;
+  repeated User users = 1;
 }
 
 message PersonCode {

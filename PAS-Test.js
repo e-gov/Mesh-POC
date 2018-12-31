@@ -32,8 +32,8 @@ function printResponse(error, response) {
 
 function listUsers() {
   client.list({}, function (error, users) {
-    /* for (var i = 0; i < users.isikud.length; i++) {
-      console.log(users.isikud[i]);
+    /* for (var i = 0; i < users.users.length; i++) {
+      console.log(users.users[i]);
     } */
     printResponse(error, users);
   });

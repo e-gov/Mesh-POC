@@ -39,7 +39,7 @@ server.addService(
       // To respond to the method, call callback
       // providing an error object (or null) and
       // an object representing the response message.
-      callback(null, { isikud: users });
+      callback(null, { users: users });
     },
     insert: function (call, callback) {
       var person = call.request;
@@ -96,3 +96,4 @@ server.bind(
 );
 
 server.start();
+console.log('PAS-POC Access Control Server Started');
