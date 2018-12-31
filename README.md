@@ -51,7 +51,7 @@ $ node PAS-Test get "EE55000000000"
 { roles: [ 'admin' ],
   personcode: 'EE55000000000',
   firstname: 'Jaan',
-  lastname: 'Kuusk' }```
+  lastname: 'Kuusk' }
 ```
 
 kasutajate nimekirja väljastamine:
