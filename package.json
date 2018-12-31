@@ -1,0 +1,27 @@
+{
+  "name": "pas-poc",
+  "version": "1.0.0",
+  "description": "RBAC module POC",
+  "main": "PAS-POC.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/e-gov/PAS-POC.git"
+  },
+  "author": "Priit Parmakson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/e-gov/PAS-POC/issues"
+  },
+  "homepage": "https://github.com/e-gov/PAS-POC#readme",
+  "dependencies": {
+    "@grpc/proto-loader": "^0.1.0",    
+    "async": "^2.6.1",
+    "google-protobuf": "^3.6.1",
+    "grpc": "^1.17.0",
+    "lodash": "^4.17.11",
+    "minimist": "^1.2.0"
+  }
+}

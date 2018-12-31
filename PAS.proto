@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package pas;
+
+// Teenuse määratlus
+// rpc nimedes on oluline mitte sisse panna suurtähti
+service PASService {
+  rpc List (Empty) returns (UserList) {}
+  rpc Insert (User) returns (OpResultMessage) {}
+  rpc Get (PersonCode) returns (User) {}
+  rpc Delete (PersonCode) returns (OpResultMessage) {}
+  rpc Assignrole (RoleAssignment)
+   returns (OpResultMessage) {}
+  rpc Watch (Empty) returns (stream User) {}
+}
+
+// Sõnumitüüpide määratlused
+message Empty {
+}
+
+message OpResultMessage {
+  string opresultmessage = 1;
+}
+
+message RoleAssignment {
+  string personcode = 1;
+  string role = 2;
+}
+
+message User {
+  string personcode = 1;
+  string firstname = 2;
+  string lastname = 3;
+  repeated string roles = 4;
+}
+
+message UserList {
+  repeated User isikud = 1;
+}
+
+message PersonCode {
+  string personcode = 1;
+}
