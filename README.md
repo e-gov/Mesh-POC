@@ -15,13 +15,7 @@ PAC-POC pakub järgmisi teenuseid:
 
 PAC-POC kasutatakse pöördumisega PAC-POC API poole.
 
-API on teostatud [gRPC](https://grpc.io/) protokolli kohaselt. Käesolev projekt ongi kasutuselevõtu _proof-of-concept_.
-
-`PAC-POC.js` - PAC-POC server
-
-`PAC-Test.js` - rakendus, millega saab PAC-POC-i testida.
-
-Tehnilised detailid: Node.js, protobuf-fail: `PAS.proto`.
+API on teostatud [gRPC](https://grpc.io/) protokolli kohaselt. Käesolev projekt ongi gPRC kasutuselevõtu _proof-of-concept_.
 
 ## Kasutamine
 
@@ -73,3 +67,16 @@ $ node PAS-Test list
        firstname: 'Jaan',
        lastname: 'Kuusk' } ] }
 ```
+
+## Tehnilised detailid
+
+`PAC-POC.js` - PAC-POC server.
+
+`PAC-Test.js` - rakendus, millega saab PAC-POC-i testida.
+
+`PAS.proto` - protobuf-fail.
+
+Sõltuvused:
+- gRPC
+- Node.js
+
