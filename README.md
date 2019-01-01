@@ -17,6 +17,8 @@ PAC-POC kasutatakse pöördumisega PAC-POC API poole.
 
 API on teostatud [gRPC](https://grpc.io/) protokolli kohaselt. Käesolev projekt ongi gPRC kasutuselevõtu _proof-of-concept_.
 
+<img src="grpc-icon-color.png" style="width:50px;">
+
 ## Kasutamine
 
 Serveri käivitamine:
