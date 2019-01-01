@@ -4,11 +4,11 @@ var kafka = require('kafka-node');
 var Consumer = kafka.Consumer;
 var Offset = kafka.Offset;
 var argv = require('optimist').argv;
-var topic = argv.topic || 'TutorialTopic';
+var topic = argv.topic || 'test';
 
 // Moodusta Zookeeper-i klient
 var Client = kafka.Client;
-var client = new Client('localhost:2181');
+var client = new Client('kafka-poc.ci.kit:2181');
 
 // Moodusta tarbija
 var topics = [ { topic: topic } ];
