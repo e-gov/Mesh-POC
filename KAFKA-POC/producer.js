@@ -1,17 +1,20 @@
+var os = require('os');
+var hostname = os.hostname();
+
 var kafka = require('kafka-node');
 var Producer = kafka.Producer;
 var KeyedMessage = kafka.KeyedMessage;
 var Client = kafka.Client;
 var client = new Client('localhost:2181');
 var argv = require('optimist').argv;
-var topic = argv.topic || 'TutorialTopic';
+var topic = argv.topic || 'test';
 var p = argv.p || 0;
 var a = argv.a || 0;
 var producer = new Producer(client, { requireAcks: 1 });
 
 producer.on('ready', function () {
-  var message = 'a message';
-  var keyedMessage = new KeyedMessage('keyed', 'a keyed message');
+  var message = 'Tere! (sõnum masinast ' + hostname + ')';
+  var keyedMessage = new KeyedMessage('keyed', 'Veel üks sõnum masinast ' + hostname);
 
   producer.send([
     { topic: topic, partition: p, messages: [message, keyedMessage], attributes: a }
