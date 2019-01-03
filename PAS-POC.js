@@ -15,9 +15,6 @@ var packageDefinition = protoLoader.loadSync(
 var pasProto = grpc.loadPackageDefinition(
   packageDefinition);
 
-// Deprecated:
-// var pasProto = grpc.load('PAS.proto');
-
 var events = require('events');
 var usersStream = new events.EventEmitter();
 
@@ -31,6 +28,7 @@ var users = [{
 
 var server = new grpc.Server();
 
+// Teenuse teostus
 server.addService(
   pasProto.pas.PASService.service,
   {
@@ -45,17 +43,30 @@ server.addService(
     insert: function (call, callback) {
       var person = call.request;
       users.push(person);
-      usersStream.emit('new_book', person);
-      callback(null, { opresultmessage: 'OK' });
+      usersStream.emit('new_user', person);
+      callback(
+        null,
+        { op_result: 'OK' }
+      );
     },
 
     get: function (call, callback) {
       for (var i = 0; i < users.length; i++)
         if (users[i].personcode == call.request.personcode)
-          return callback(null, users[i]);
-      // TODO: Korrektne veakäsitlus
-      callback(null,
-        { opresultmessage: 'Ei leia sellist kasutajat' });
+          return callback(
+            null,
+            {
+              op_result: 'OK',
+              user_found: users[i]
+            }
+          );
+      callback(
+        null,
+        {
+          op_result: 'Ei leia sellist kasutajat',
+          user_found: null
+        }
+      );
     },
 
     delete: function (call, callback) {
@@ -70,24 +81,36 @@ server.addService(
     },
 
     assignrole: function (call, callback) {
-      var personcode = call.request.personcode;
-      var role = call.request.role;
+      var roleassignment = {
+        role: call.request.role,
+        event: call.request.event,
+        startdate: call.request.startdate,
+        enddate: call.request.enddate,
+        status: call.request.status
+      };
+      personcode = call.request.personcode;
       for (var i = 0; i < users.length; i++) {
         if (users[i].personcode == personcode) {
-          users[i].roles.push(role);
-          return callback(null, { opresultmessage: 'OK' });
+          users[i].roles.push(roleassignment);
+          return callback(
+            null,
+            { opresultmessage: 'OK' }
+          );
         }
       }
       callback(
-        null, { opresultmessage: 'Ei leia sellist kasutajat' }
+        null,
+        { opresultmessage: 'Ei leia sellist kasutajat' }
       );
     },
-    
+
+    /*
     watch: function (stream) {
-      usersStream.on('new_book', function (person) {
+      usersStream.on('new_user', function (person) {
         stream.write(person);
       });
     }
+    */
   });
 
 server.bind(

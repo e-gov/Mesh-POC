@@ -15,9 +15,6 @@ var packageDefinition = protoLoader.loadSync(
 var pasProto = grpc.loadPackageDefinition(
   packageDefinition);
 
-// Deprecated:
-// var pasProto = grpc.load('PAS.proto');
-
 var client = new pasProto.pas.PASService(
   '0.0.0.0:50051',
   grpc.credentials.createInsecure()
@@ -67,10 +64,15 @@ function deleteUser(personcode) {
   });
 }
 
-function assignRole(personcode, role) {
+function assignRole(personcode, role,
+  event, startdate, enddate, status) {
   var roleassignment = {
     personcode: personcode,
-    role: role
+    role: role,
+    event: event,
+    startdate: startdate,
+    enddate: enddate,
+    status: status
   };
   client.assignrole(
     roleassignment,
@@ -79,12 +81,14 @@ function assignRole(personcode, role) {
     });
 }
 
+/*
 function watchUsers() {
   var call = client.watch({});
   call.on('data', function (user) {
     console.log(user);
   });
 }
+*/
 
 var processName = process.argv.shift();
 var scriptName = process.argv.shift();
@@ -92,14 +96,33 @@ var command = process.argv.shift();
 
 if (command == 'list')
   listUsers();
+
 else if (command == 'insert')
   insertUser(
-    process.argv[0], process.argv[1], process.argv[2]);
+    process.argv[0], // person_code
+    process.argv[1], // first_name
+    process.argv[2], // last_name
+  );
+
 else if (command == 'get')
-  getUser(process.argv[0]);
+  getUser(
+    process.argv[0] // person_code
+  );
+
 else if (command == 'delete')
-  deleteUser(process.argv[0]);
+  deleteUser(
+    process.argv[0] // person_code
+  );
+
 else if (command == 'assign')
-  assignRole(process.argv[0], process.argv[1]);
-else if (command == 'watch')
-  watchUsers();
+  assignRole(
+    process.argv[0], // person_code
+    process.argv[1], // role
+    process.argv[2], // event
+    process.argv[3], // start_date
+    process.argv[4], // end_state
+    process.argv[5] // status
+  );
+
+// else if (command == 'watch')
+//  watchUsers();
