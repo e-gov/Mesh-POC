@@ -1,13 +1,17 @@
+/* Stiilijuhis
+- sõnumi-, teenuse ja rpc meetodinimed - Camelcase
+- rpc nimedes on oluline mitte kasutada suurtähti, peale esimese
+- väljanimed sõnumites - väiketähed, sõnade eraldajaks allkriips
+*/
 syntax = "proto3";
 
 package pas;
 
 // Teenuse määratlus
-// rpc nimedes on oluline mitte sisse panna suurtähti
 service PASService {
   rpc List (Empty) returns (UserList) {}
   rpc Insert (User) returns (OpResultMessage) {}
-  rpc Get (PersonCode) returns (User) {}
+  rpc Get (PersonCode) returns (GetUserResult) {}
   rpc Delete (PersonCode) returns (OpResultMessage) {}
   rpc Assignrole (RoleAssignment)
    returns (OpResultMessage) {}
@@ -19,19 +23,28 @@ message Empty {
 }
 
 message OpResultMessage {
-  string opresultmessage = 1;
+  string op_result = 1;
+}
+
+message GetUserResult {
+  string op_result = 1;
+  User user_found = 2;  
 }
 
 message RoleAssignment {
   string personcode = 1;
   string role = 2;
+  string event = 3;
+  string start_date = 4;
+  string end_date = 5;
+  string status = 6;
 }
 
 message User {
   string personcode = 1;
-  string firstname = 2;
-  string lastname = 3;
-  repeated string roles = 4;
+  string first_name = 2;
+  string last_name = 3;
+  repeated RoleAssignment roles = 4;
 }
 
 message UserList {
