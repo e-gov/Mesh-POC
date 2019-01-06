@@ -1,4 +1,25 @@
-# PAS-POC
+
+klaster `monkey`
+  5000, 5001
+
+klaster `banana`
+  5002, 5003
+
+`Teenus_1`
+
+curl -H "Host:banana" localhost:5100
+
+## Teenus 2
+
+Teenus 2 on väga lihtne. Ta ootab HTTP GET pöördumisi. Pöördumisele vastab JSON-struktuuriga, milles on teenuse nimi (`Teenus 2`) ja ajamärge (timestamp).
+
+Teenuse käivitamine:
+
+```
+cd Teenus_2 && node teenus
+```
+
+## PAS-POC
 
 PAC-POC on pääsuõiguste moodul, mis on mõeldud kasutamiseks suurema süsteemi koosseisus.
 
