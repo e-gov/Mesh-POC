@@ -1,23 +1,28 @@
+## Mikroteenusvõrgu POC
 
-klaster `monkey`
-  5000, 5001
+Süsteem on paigaldatud ja töötab kõrgkäideldava mikroteenusvõrguna (mesh).
 
-klaster `banana`
-  5002, 5003
+Süsteemi koosseisus on kaks teenust - "Monkey" ja "Banana". Kumbki teenus on paigaldatud klasterdatult (vt skeem).
 
-`Teenus_1`
+Teenus Monkey reageerib pöördumistele (HTTP):
 
-curl -H "Host:banana" localhost:5100
+- `/monkey` - elutukseteatega ("Monkey kuuldel")
+- `/getbanana` - teeb pöördumise teenuse Banana poole ja edastab sealt saadud vastuse.
 
-## Teenus 2
+Teenus Banana reageerib pöördumistele (HTTP):
 
-Teenus 2 on väga lihtne. Ta ootab HTTP GET pöördumisi. Pöördumisele vastab JSON-struktuuriga, milles on teenuse nimi (`Teenus 2`) ja ajamärge (timestamp).
+- `/banana` - elutukseteatega ("Banana kuuldel")
+- `/getbanana` - teatega "Please, your banana!"
 
-Teenuse käivitamine:
+Süsteemi poole saab pöörduda läbi Välisliikluse vahendaja (Edge Proxy). Välisliikluse vahendaja (masinas priitp-mesh-1.ci.kit) kuulab pordil `5100` ja marsruudib pöördumise vastavalt URL-iteele (Path):
 
-```
-cd Teenus_2 && node teenus
-```
+`/monkey...` - teenusesse Monkey
+`/banana...` - teenusesse Banana
+
+Koormusejaotamist ja marsruutimist teevad iga instantsi masinas olevad vahendajad (Proxy) Envoy. Rakendus suhtleb ainult oma masinas oleva Envoy-ga. Rakenduse port on `5000`, kuid masinast välja paistab ainult Envoy port `5100`.
+
+POC-is ei ole teostatud Envoy-de vahelise liikluse kaitsmine HTTPS-ga. Samuti ei ole rakenduse pordid (`5000`) masinast väljast pöördumisele suletud (kuid neid ei kasutata). Toodangupaigalduses loomulikult on vaja HTTPS-i rakendada ja mitteettenähtud pordid sulgeda.
+
 
 ## PAS-POC
 

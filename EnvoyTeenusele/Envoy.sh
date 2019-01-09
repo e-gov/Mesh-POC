@@ -53,7 +53,7 @@ docker build \
 #   Selle seadistuse efekt: host-i töökaust tehakse
 #   konteinerile failitee /config all kättesaadavaks.
 #
-#   pas-envoy on käivitatav tõmmis (valmistatud 
+#   teenuse-envoy on käivitatav tõmmis (valmistatud 
 #   eelmisel sammul)
 # 
 #   /usr/local/bin/envoy on käivitatav käsk

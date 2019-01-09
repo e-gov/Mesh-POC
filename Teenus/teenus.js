@@ -78,7 +78,7 @@ app.get('/',
     logi('Väljastan elutukse');
     res.send(
       TEENUSENIMI +
-      ' kuuldel (' + HOSTNAME + ':' + PORT + ') '
+      ' kuuldel (' + HOSTNAME + ':' + PORT + ') \n'
     );
   }
 );
@@ -88,7 +88,7 @@ app.get('/monkey',
     logi('Väljastan elutukse');
     res.send(
       TEENUSENIMI +
-      ' kuuldel (' + HOSTNAME + ':' + PORT + ') '
+      ' kuuldel (' + HOSTNAME + ':' + PORT + ') \n'
     );
   }
 );
@@ -98,7 +98,7 @@ app.get('/banana',
     logi('Väljastan elutukse');
     res.send(
       TEENUSENIMI +
-      ' kuuldel (' + HOSTNAME + ':' + PORT + ') '
+      ' kuuldel (' + HOSTNAME + ':' + PORT + ') \n'
     );
   }
 );
@@ -130,7 +130,7 @@ app.get('/monkey/getbanana',
         return;
       }
       else {
-        logi('Annan ahvile banaani');
+        logi('Viga');
         res.send(
           TEENUSENIMI + ' (' + HOSTNAME + ':' + PORT + ') ' +
           ': ' + JSON.stringify(error)
@@ -145,7 +145,7 @@ app.get('/banana/getbanana',
   function (req, res) {
     res.send(
       TEENUSENIMI + ' (' + HOSTNAME + ':' + PORT + ') ' +
-      ': Please, your banana!'
+      ': Please, your banana! \n'
     );
   }
 );
