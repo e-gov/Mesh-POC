@@ -1,3 +1,37 @@
+Käesolev repo sisaldab mikroteenusarhitektuuri tehnoloogiate katsetusi (_proof-of-concept_-e).
+
+- Kafka POC
+- gRPC POC
+- Envoy POC
+
+## Kafka POC
+
+Vajad kolme sõlme: 1) Kafka server; 2) sõnumitootja (producer); 3) sõnumitarbija (consumer). Võib paigaldada ühte masinasse, kuid siis peab portidega eristama.
+
+1  Paigalda Kafka.
+
+2  Paigalda sõnumitootja
+
+- paigalda Node.js ja npm.
+- paigalda kood - https://github.com/e-gov/Mesh-POC, oluline on kaust `Kafka-POC`.
+- asenda failis `producer.js` väärtus `kafkaserveraddresshere` Kafka serveri tegeliku aadressiga.
+- paigalda vajalikud teegid (`kafka-node`, `optimist`).
+
+3 Paigalda sõnumitarbija
+
+- paigalda Node.js ja npm.
+- paigalda kood - https://github.com/e-gov/Mesh-POC, oluline on kaust `Kafka-POC`.
+- asenda failis `consumer.js` väärtus `kafkaserveraddresshere` Kafka serveri tegeliku aadressiga.
+- paigalda vajalikud teegid (`kafka-node`).
+
+käivita: `node consumer`
+
+4 Sõnumi saatmiseks käivita:
+
+`node producer [teema]`
+
+Vaikimisi on teemaks `test`.
+
 ## Mikroteenusvõrgu POC
 
 Süsteem on paigaldatud ja töötab kõrgkäideldava mikroteenusvõrguna (mesh).
@@ -23,8 +57,7 @@ Koormusejaotamist ja marsruutimist teevad iga instantsi masinas olevad vahendaja
 
 POC-is ei ole teostatud Envoy-de vahelise liikluse kaitsmine HTTPS-ga. Samuti ei ole rakenduse pordid (`5000`) masinast väljast pöördumisele suletud (kuid neid ei kasutata). Toodangupaigalduses loomulikult on vaja HTTPS-i rakendada ja mitteettenähtud pordid sulgeda.
 
-
-## PAS-POC
+## gRPC POC
 
 PAC-POC on pääsuõiguste moodul, mis on mõeldud kasutamiseks suurema süsteemi koosseisus.
 

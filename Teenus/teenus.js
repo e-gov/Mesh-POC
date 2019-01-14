@@ -69,37 +69,33 @@ function logi(logikirje) {
   );
 }
 
+// Algväärtusta banaanikogus
+var banaaniTeenus = (TEENUSENIMI == 'Banana');
+// Ahvidel ei ole banaane
+var banaane = (banaaniTeenus) ? 100 : 0;
+
 /** Väljasta elutukse. Pöörduda võib nii Välisvahendaja (Edge)
  * kui ka teine teenus.
  * Väljastab teenusenumbri, hostinime ja pordi, kus kuulab
 */
-app.get('/',
-  function (req, res) {
-    logi('Väljastan elutukse');
-    res.send(
-      TEENUSENIMI +
-      ' kuuldel (' + HOSTNAME + ':' + PORT + ') \n'
-    );
-  }
-);
+
+function elutukse() {
+  logi('Väljastan elutukse');
+  return TEENUSENIMI +
+  ' kuuldel (' + HOSTNAME + ':' + PORT + ')' + 
+  ' banaane: ' + banaane.toString() +
+  ' \n';
+}
 
 app.get('/monkey',
   function (req, res) {
-    logi('Väljastan elutukse');
-    res.send(
-      TEENUSENIMI +
-      ' kuuldel (' + HOSTNAME + ':' + PORT + ') \n'
-    );
+    res.send(elutukse());
   }
 );
 
 app.get('/banana',
   function (req, res) {
-    logi('Väljastan elutukse');
-    res.send(
-      TEENUSENIMI +
-      ' kuuldel (' + HOSTNAME + ':' + PORT + ') \n'
-    );
+    res.send(elutukse());
   }
 );
 
@@ -115,10 +111,6 @@ app.get('/monkey/getbanana',
     // Pöördumine Envoy kaudu Banaaniteenusesse
     const options = {
       url: 'http://localhost:5100/banana/getbanana'
-      // ,
-      // headers: {
-      //   'Host': 'Mesh'
-      // }
     }
     function callback(error, response, body) {
       if (!error && response.statusCode == 200) {
@@ -147,6 +139,7 @@ app.get('/banana/getbanana',
       TEENUSENIMI + ' (' + HOSTNAME + ':' + PORT + ') ' +
       ': Please, your banana! \n'
     );
+    banaane = banaane - 1;
   }
 );
 

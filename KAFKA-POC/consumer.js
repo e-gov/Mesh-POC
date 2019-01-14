@@ -8,7 +8,7 @@ var topic = argv.topic || 'test';
 
 // Moodusta Zookeeper-i klient
 var Client = kafka.Client;
-var client = new Client('kafka-poc.ci.kit:2181');
+var client = new Client('kafkaserveraddresshere:2181');
 
 // Moodusta tarbija
 var topics = [ { topic: topic } ];
